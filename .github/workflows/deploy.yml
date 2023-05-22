@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: Install
+      - name: Installing
         run: yarn
 
       - name: Linting
@@ -37,6 +37,7 @@ jobs:
     needs: build
     name: Deploying to S3
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Setup AWS CLI
