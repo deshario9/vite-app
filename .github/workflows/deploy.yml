@@ -9,13 +9,12 @@ on:
       - main
 
 jobs:
-  lint:
-    name: Linter
+  build:
+    name: Install + Lint + Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node_version: [16]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,3 +29,15 @@ jobs:
 
       - name: Linting
         run: yarn lint
+
+      - name: Building
+        run: yarn build
+
+  deploy:
+    needs: build
+    name: Deploying to S3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v2
