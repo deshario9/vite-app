@@ -24,8 +24,14 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
 
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: -/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
       - name: Installing
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: Linting
         run: yarn lint
