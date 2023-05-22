@@ -49,4 +49,4 @@ jobs:
 
       - name: Uploads Build to S3
         # run: aws s3 sync ./dist/ s3://vite-app --delete
-        run: ls -l
+        run: ls -l >> $GITHUB_OUTPUT
