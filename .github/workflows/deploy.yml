@@ -9,32 +9,32 @@ on:
       - main
 
 jobs:
-  # build:
-  #   name: Install + Lint + Build
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       node_version: [16]
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+  build:
+    name: Install + Lint + Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [16]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Setup node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node_version }}
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
 
-  #     - name: Installing
-  #       run: yarn
+      - name: Installing
+        run: yarn
 
-  #     - name: Linting
-  #       run: yarn lint
+      - name: Linting
+        run: yarn lint
 
-  #     - name: Building
-  #       run: yarn build
+      - name: Building
+        run: yarn build
 
   deploy:
-    # needs: build
+    needs: build
     name: Deploying to S3
     runs-on: ubuntu-latest
     # if: github.ref == 'refs/heads/main'
