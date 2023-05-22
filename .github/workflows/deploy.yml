@@ -1,0 +1,29 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Linter
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [16]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install
+        run: yarn
+
+      - name: Linting
+        run: yarn lint
